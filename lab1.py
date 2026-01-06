@@ -19,7 +19,7 @@ class APIAutomation:
     def get_token(self) -> Tuple[Optional[str], Optional[Dict]]:
         # Step 1: Hämta en ny token från API:et. Returnerar: (token, hela response_json)
         try:
-            response = self.session.post(f"{self.base_url}/token", timeout=TIMEOUT)
+            response = self.session.post(f"{self.base_url}/api/token", timeout=TIMEOUT)
             response.raise_for_status()
             data = response.json()
             token = data.get('token')
@@ -50,7 +50,7 @@ class APIAutomation:
         # Step 2: Verifiera token inom tidsfönstret. Returnerar verifierings-svar (inkl. secret) eller None
         try:
             headers = {'Authorization': f'Bearer {token}'}
-            response = self.session.post(f"{self.base_url}/verify", headers=headers, timeout=TIMEOUT)
+            response = self.session.post(f"{self.base_url}/api/verify", headers=headers, timeout=TIMEOUT)
             response.raise_for_status()
             data = response.json()
             secret = data.get('secret')
@@ -78,7 +78,7 @@ class APIAutomation:
             headers = {'Authorization': f'Bearer {token}'}
             payload = {'secret': secret}
             response = self.session.post(
-                f"{self.base_url}/claim",
+                f"{self.base_url}/api/flag",
                 headers=headers,
                 json=payload,
                 timeout=TIMEOUT
