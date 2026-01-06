@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-#API Automation Script for Pentest Lab
-#Automatiserar time-critical API-flöde för att hämta flagga
-
 import requests
 import json
 import time
